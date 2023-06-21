@@ -311,7 +311,32 @@ void SimpleEQAudioProcessor::updateFilters()
 juce::AudioProcessorValueTreeState::ParameterLayout SimpleEQAudioProcessor::createParameterLayout()
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
-    
+
+    /*These are The Parameters of our plugin.
+        Spec:
+    3 Bands
+        Low, High, Parametric / Peak
+        Cut Bands : Controllable Frequency / Slope
+        Parametric Band : Controllable Frequency, Gain, Quality*/
+
+    /*The Audio Parameter Float Class has many Variables:
+    1. String parameter ID - Id of the Parameter
+    2. Name of Parameter
+    3. Normalizable Range - Range of the parameter
+    4. Default Value
+
+        The Normalization Range is also having many parameters
+        1. Range Start
+        2. Range End
+        3. Interval Value - Slider will change the parameter in this no. of steps.
+        4. Skew Factor 
+
+        The Skew Factor :
+    It helps to manage the value of a parameter logarithmically so that the larger or smaller values given a larger proportion of the space.
+    A factor of 1.0 is neutral.
+    Factor < 1.0 means that lower range will cover more space of the parameter.
+    Factor > 1.0 States that upper end of the range will fill more of the sliders length.*/
+
     layout.add(std::make_unique<juce::AudioParameterFloat>("LowCut Freq",
                                                            "LowCut Freq",
                                                            juce::NormalisableRange<float>(20.f, 20000.f, 1.f, 0.25f),
@@ -336,7 +361,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout SimpleEQAudioProcessor::crea
                                                            "Peak Quality",
                                                            juce::NormalisableRange<float>(0.1f, 10.f, 0.05f, 1.f),
                                                            1.f));
-    
+
+    /*For the sliders Ranging continuously, Normalization range is used.
+        But We also have some other parameters like steep of low cutand high cut.
+        How can we set the values of those parameters ?
+        The solution is stringArray.
+        We will declare a string array and will assign values from 12 to 48 like this*/
     juce::StringArray stringArray;
     for( int i = 0; i < 4; ++i )
     {
