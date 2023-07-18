@@ -179,7 +179,11 @@ void SimpleEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 //
 //    juce::dsp::ProcessContextReplacing<float> stereoContext(block);
 //    osc.process(stereoContext);
-    
+
+    /*The Processor chain requires a processing contest to be passed to it, in order to 
+    run the audio through the links in the chain.
+    We need to extract the leftand right channelsand left and right channels are typically 0 and 1.*/
+
     auto leftBlock = block.getSingleChannelBlock(0);
     auto rightBlock = block.getSingleChannelBlock(1);
     

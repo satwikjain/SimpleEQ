@@ -751,7 +751,7 @@ void SimpleEQAudioProcessorEditor::paint(juce::Graphics &g)
     
     g.setFont(Font("Iosevka Term Slab", 30, 0)); //https://github.com/be5invis/Iosevka
     
-    String title { "PFM::C++ FOR MUSICIANS" };
+    String title { "SIMPLE EQUALIZER" };
     g.setFont(30);
     auto titleWidth = g.getCurrentFont().getStringWidth(title);
     

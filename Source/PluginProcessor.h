@@ -168,6 +168,9 @@ using Filter = juce::dsp::IIR::Filter<float>;
 
 using CutFilter = juce::dsp::ProcessorChain<Filter, Filter, Filter, Filter>;
 
+//The Modules in DSP are meant to process only the MONO audio.
+//It can only process single channel of audio not stereo audio.
+
 using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter>;
 
 enum ChainPositions
